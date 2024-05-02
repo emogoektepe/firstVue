@@ -24,7 +24,7 @@ const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider()
   signInWithPopup(auth, provider)
     .then(() => {
-      router.push({ path: 'main' })
+      router.push({ path: 'main/dashboard' })
     })
     .catch((error) => {
       console.error('Something went wrong', error)

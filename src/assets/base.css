@@ -9,4 +9,5 @@ body {
 *::after {
   box-sizing: border-box;
   font-weight: normal;
+  user-select: none;
 }
