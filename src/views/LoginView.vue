@@ -1,0 +1,96 @@
+<script setup lang="ts">
+import { auth } from '@/firebase'
+import router from '@/router'
+// import { db } from '../firebase'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+
+// const users = ref<User[]>([])
+
+// onMounted(() => {
+//   const unsubscribe = onSnapshot(collection(db, 'user'), (snapshot) => {
+//     users.value = [] // Leere die users-Liste, bevor wir sie aktualisieren
+
+//     snapshot.forEach((user) => {
+//       const userData = user.data() as User // Wir sagen TypeScript explizit, dass dies ein User-Objekt ist
+//       userData.id = user.id
+//       users.value.push(userData)
+//     })
+//   })
+
+//   onUnmounted(unsubscribe)
+// })
+
+const signInWithGoogle = () => {
+  const provider = new GoogleAuthProvider()
+  signInWithPopup(auth, provider)
+    .then(() => {
+      router.push({ path: 'dashboard' })
+    })
+    .catch((error) => {
+      console.error('Something went wrong', error)
+    })
+}
+
+const guestLogin = () => {
+  router.push({ path: 'dashboard' })
+}
+</script>
+
+<template>
+  <main>
+    <div class="main-wrapper">
+      <div class="logo">
+        <img src="@/assets/logo.svg" alt="" width="125" height="125" />
+        <img src="@/assets/primevue-logo.png" alt="" width="125" height="125" />
+        <img src="@/assets/vite.svg" alt="" width="125" height="125" />
+        <img src="@/assets/firebase.svg" alt="" width="125" height="125" />
+      </div>
+      <h1>Welcome to Simple CRM.</h1>
+      <div class="login-buttons">
+        <Button @click="signInWithGoogle" icon="pi pi-google" label="Google Login"></Button>
+        <Button @click="guestLogin" label="Guest login"></Button>
+      </div>
+    </div>
+  </main>
+</template>
+
+<style scoped>
+* {
+  margin: 0;
+}
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logo {
+  width: 50%;
+  display: flex;
+  gap: 50px;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  text-align: center;
+  padding: 35px;
+  border-radius: 25px;
+  box-shadow:
+    -5px -5px 10px #bd34fe,
+    5px 5px 10px #41b883;
+}
+
+.login-buttons {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  > button {
+    width: 200px;
+  }
+}
+</style>
