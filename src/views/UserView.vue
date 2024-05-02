@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>Dashboard is Working!</template>
+<template>User is Working!</template>
 
 <style scoped></style>

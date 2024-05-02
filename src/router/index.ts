@@ -10,12 +10,25 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
+      path: '/main',
+      name: 'main',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/DashboardView.vue')
+      component: () => import('../views/MainView.vue'),
+      children: [
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: () => import('../views/DashboardView.vue')
+        },
+        {
+          path: 'user',
+          name: 'user',
+          component: () => import('../views/UserView.vue')
+        }
+        // add more child routes as needed
+      ]
     }
   ]
 })

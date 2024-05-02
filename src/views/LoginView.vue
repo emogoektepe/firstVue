@@ -24,7 +24,7 @@ const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider()
   signInWithPopup(auth, provider)
     .then(() => {
-      router.push({ path: 'dashboard' })
+      router.push({ path: 'main' })
     })
     .catch((error) => {
       console.error('Something went wrong', error)
@@ -32,7 +32,7 @@ const signInWithGoogle = () => {
 }
 
 const guestLogin = () => {
-  router.push({ path: 'dashboard' })
+  router.push({ path: 'main/dashboard' })
 }
 </script>
 
@@ -47,8 +47,12 @@ const guestLogin = () => {
       </div>
       <h1>Welcome to Simple CRM.</h1>
       <div class="login-buttons">
-        <Button @click="signInWithGoogle" icon="pi pi-google" label="Google Login"></Button>
-        <Button @click="guestLogin" label="Guest login"></Button>
+        <PrimeButton
+          @click="signInWithGoogle"
+          icon="pi pi-google"
+          label="Google Login"
+        ></PrimeButton>
+        <PrimeButton @click="guestLogin" label="Guest login"></PrimeButton>
       </div>
     </div>
   </main>
