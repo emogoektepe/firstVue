@@ -22,6 +22,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider()
+  provider.setCustomParameters({ prompt: 'select_account' })
   signInWithPopup(auth, provider)
     .then(() => {
       router.push({ path: 'main/dashboard' })
@@ -45,7 +46,7 @@ const guestLogin = () => {
         <img src="@/assets/vite.svg" alt="" width="125" height="125" />
         <img src="@/assets/firebase.svg" alt="" width="125" height="125" />
       </div>
-      <h1>Welcome to Simple CRM.</h1>
+      <h1>Welcome to Simple E-Commerce.</h1>
       <div class="login-buttons">
         <PrimeButton
           @click="signInWithGoogle"
@@ -83,9 +84,7 @@ main {
   text-align: center;
   padding: 35px;
   border-radius: 25px;
-  box-shadow:
-    -5px -5px 10px #bd34fe,
-    5px 5px 10px #41b883;
+  animation: rotateShadow 4s linear infinite;
 }
 
 .login-buttons {
@@ -95,6 +94,24 @@ main {
   gap: 20px;
   > button {
     width: 200px;
+  }
+}
+
+@keyframes rotateShadow {
+  0% {
+    box-shadow:
+      -10px -10px 30px #41b783,
+      10px 10px 30px #bd34fe;
+  }
+  50% {
+    box-shadow:
+      -10px -10px 30px #bd34fe,
+      10px 10px 30px #41b783;
+  }
+  100% {
+    box-shadow:
+      -10px -10px 30px #41b783,
+      10px 10px 30px #bd34fe;
   }
 }
 </style>

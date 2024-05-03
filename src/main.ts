@@ -10,6 +10,7 @@ import ToastService from 'primevue/toastservice'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import TabMenu from 'primevue/tabmenu'
+import Chart from 'primevue/chart'
 
 import 'primevue/resources/themes/aura-dark-green/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -24,5 +25,6 @@ app.use(ToastService)
 app.component('InputText', InputText)
 app.component('PrimeButton', Button)
 app.component('TabMenu', TabMenu)
+app.component('PrimeChart', Chart)
 
 app.mount('#app')

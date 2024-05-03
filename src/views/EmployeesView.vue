@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>User is Working!</template>
+<template>Employee is Working!</template>
 
 <style scoped></style>

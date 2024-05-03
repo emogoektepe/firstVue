@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { onMounted, onBeforeUnmount, watch, ref } from 'vue'
 import type { MenuItem } from '@/models/menuItem'
 import router from '@/router'
-import { ref, watch } from 'vue'
 
 const active = ref(0)
 
 const items = ref<MenuItem[]>([
-  { label: 'Dashboard', icon: 'pi pi-home', path: 'dashboard' },
-  { label: 'User', icon: 'pi pi-chart-line', path: 'user' }
+  { label: 'Dashboard', icon: 'pi pi-chart-bar', path: 'dashboard' },
+  { label: 'Employees', icon: 'pi pi-users', path: 'employees' }
 ])
 
 const handleTabChange = (index: number) => {
@@ -19,15 +19,22 @@ const logOut = () => {
   router.push({ path: '/' })
 }
 
-watch(
-  () => router.currentRoute.value.path,
-  (newPath) => {
+onMounted(() => {
+  const updateActiveIndex = (newPath: string) => {
     const activeIndex = items.value.findIndex((item) => newPath.includes(item.path))
     if (activeIndex !== -1) {
       active.value = activeIndex
     }
   }
-)
+
+  updateActiveIndex(router.currentRoute.value.path)
+
+  const unwatch = watch(() => router.currentRoute.value.path, updateActiveIndex)
+
+  onBeforeUnmount(() => {
+    unwatch()
+  })
+})
 </script>
 
 <template>
@@ -42,4 +49,9 @@ watch(
   <RouterView />
 </template>
 
-<style scoped></style>
+<style scoped>
+/* primevue beispiel */
+/* :deep(.p-menuitem-icon) {
+  color: red;
+} */
+</style>
