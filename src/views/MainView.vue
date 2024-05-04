@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, watch, ref } from 'vue'
-import type { MenuItem } from '@/models/menuItem'
 import router from '@/router'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const active = ref(0)
 
-const items = ref<MenuItem[]>([
+const items = [
   { label: 'Dashboard', icon: 'pi pi-chart-bar', path: 'dashboard' },
   { label: 'Employees', icon: 'pi pi-users', path: 'employees' }
-])
+]
 
 const handleTabChange = (index: number) => {
-  const tabName = items.value[index].path
+  const tabName = items[index].path
   router.push({ path: `/main/${tabName}` })
 }
 
@@ -21,7 +20,7 @@ const logOut = () => {
 
 onMounted(() => {
   const updateActiveIndex = (newPath: string) => {
-    const activeIndex = items.value.findIndex((item) => newPath.includes(item.path))
+    const activeIndex = items.findIndex((item) => newPath.includes(item.path))
     if (activeIndex !== -1) {
       active.value = activeIndex
     }

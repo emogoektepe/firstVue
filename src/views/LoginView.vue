@@ -1,24 +1,7 @@
 <script setup lang="ts">
 import { auth } from '@/firebase'
 import router from '@/router'
-// import { db } from '../firebase'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-
-// const users = ref<User[]>([])
-
-// onMounted(() => {
-//   const unsubscribe = onSnapshot(collection(db, 'user'), (snapshot) => {
-//     users.value = [] // Leere die users-Liste, bevor wir sie aktualisieren
-
-//     snapshot.forEach((user) => {
-//       const userData = user.data() as User // Wir sagen TypeScript explizit, dass dies ein User-Objekt ist
-//       userData.id = user.id
-//       users.value.push(userData)
-//     })
-//   })
-
-//   onUnmounted(unsubscribe)
-// })
 
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider()
