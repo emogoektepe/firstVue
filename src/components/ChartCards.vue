@@ -39,7 +39,7 @@ const arrowIcon = ref(
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border: 1px solid #059669;
+  border: 1px solid #3cc698;
   border-radius: 30px;
   padding: 10px;
 }
