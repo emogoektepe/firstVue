@@ -1,9 +1,3 @@
-<template>
-  <div class="card flex justify-content-center">
-    <PrimeChart type="pie" :data="chartData" :options="chartOptions" class="w-full md:w-30rem" />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
@@ -42,4 +36,8 @@ const setChartOptions = () => {
 }
 </script>
 
-<style scoped></style>
+<template>
+  <div class="card flex justify-content-center">
+    <PrimeChart type="pie" :data="chartData" :options="chartOptions" class="w-full md:w-30rem" />
+  </div>
+</template>

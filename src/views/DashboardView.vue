@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import dashboardDummyData from '@/public/dashboardHeader.json'
+import DashboardDummyData from '@/public/dashboardHeader.json'
 import ChartCards from '@/components/ChartCards.vue'
 import VerticalBar from '@/components/VerticalBar.vue'
 import PieChart from '@/components/PieChart.vue'
@@ -9,7 +9,7 @@ import PieChart from '@/components/PieChart.vue'
   <main>
     <div class="cards">
       <ChartCards
-        v-for="(card, index) in dashboardDummyData"
+        v-for="(card, index) in DashboardDummyData"
         :key="index"
         :header="card.header"
         :second-header="card.secondHeader"

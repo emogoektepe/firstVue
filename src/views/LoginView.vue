@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { auth } from '@/firebase'
 import router from '@/router'
+
+import { auth } from '@/firebase'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 const signInWithGoogle = () => {

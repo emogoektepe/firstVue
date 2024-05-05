@@ -78,5 +78,3 @@ const setChartOptions = () => {
     <PrimeChart type="bar" :data="chartData" :options="chartOptions" class="h-30rem" />
   </div>
 </template>
-
-<style scoped></style>

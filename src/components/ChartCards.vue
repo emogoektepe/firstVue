@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DynamicChart from '@/components/DynamicChart.vue'
+
 const props = defineProps<{
   data: number[]
   header: string

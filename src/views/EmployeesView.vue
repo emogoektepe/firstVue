@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Employee } from '@/models/employee'
 import FirebaseService from '@/services/firebase'
 import DeleteDialog from '@/components/DeleteDialog.vue'
 import AddEmployeeDialog from '@/components/AddEmployeeDialog.vue'
 
+import type { Employee } from '@/models/employee'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const employees = ref<Employee[]>([])

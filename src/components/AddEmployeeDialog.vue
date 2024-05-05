@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { Employee } from '@/models/employee'
 import FirebaseService from '@/services/firebase'
+
 import { computed, ref } from 'vue'
+import type { Employee } from '@/models/employee'
 
 const visible = ref(false)
 const employee = ref<Employee>({

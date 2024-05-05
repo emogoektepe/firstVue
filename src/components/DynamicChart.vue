@@ -92,5 +92,3 @@ const setChartOptions = () => {
     />
   </div>
 </template>
-
-<style scoped></style>

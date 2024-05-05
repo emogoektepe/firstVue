@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import router from '@/router'
+
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const active = ref(0)
@@ -47,10 +48,3 @@ onMounted(() => {
   </div>
   <RouterView />
 </template>
-
-<style scoped>
-/* primevue beispiel */
-/* :deep(.p-menuitem-icon) {
-  color: red;
-} */
-</style>

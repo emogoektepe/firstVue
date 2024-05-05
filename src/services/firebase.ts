@@ -1,6 +1,6 @@
-import { db } from '@/firebase'
 import { addDoc, collection, deleteDoc, doc, onSnapshot } from 'firebase/firestore'
 import type { Employee } from '@/models/employee'
+import { db } from '@/firebase'
 
 export default {
   getEmployees(callback: (employees: Employee[]) => void) {

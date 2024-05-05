@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Employee } from '@/models/employee'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
+import type { Employee } from '@/models/employee'
 import FirebaseService from '@/services/firebase'
 
 const props = defineProps<{
@@ -48,5 +48,3 @@ defineExpose({
   <PrimeToast />
   <ConfirmDialog></ConfirmDialog>
 </template>
-
-<style scoped></style>
