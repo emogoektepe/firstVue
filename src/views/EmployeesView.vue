@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { db } from '@/firebase'
 import type { Employee } from '@/models/employee'
-import { collection, onSnapshot } from 'firebase/firestore'
+import FirebaseService from '@/services/firebase'
+import DeleteDialog from '@/components/DeleteDialog.vue'
+import AddEmployeeDialog from '@/components/AddEmployeeDialog.vue'
+
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const employees = ref<Employee[]>([])
+const deleteDialogRef = ref<typeof DeleteDialog | null>(null)
+const addEmployeeRef = ref<typeof AddEmployeeDialog | null>(null)
+
+// i would never use ids in code dont worry :D
+const disabledEmployeeId = ref<string>('P6BXetVOG9On0EcGinCg')
 
 const addEmployee = () => {
-  console.log('add employee')
+  addEmployeeRef.value?.openDialog()
 }
 
-const deleteEmployee = (rowDataIndex: number) => {
-  console.log(employees.value[rowDataIndex].id)
+const confirmDelete = (rowDataIndex: number) => {
+  deleteDialogRef.value?.openDeleteDialog(rowDataIndex)
 }
 
 const editEmployee = (rowDataIndex: number) => {
@@ -19,13 +26,8 @@ const editEmployee = (rowDataIndex: number) => {
 }
 
 onMounted(() => {
-  const unsubscribe = onSnapshot(collection(db, 'employees'), (snapshot) => {
-    employees.value = []
-    snapshot.forEach((employee) => {
-      const employeeData = employee.data() as Employee
-      employeeData.id = employee.id
-      employees.value.push(employeeData)
-    })
+  const unsubscribe = FirebaseService.getEmployees((fetchedEmployees) => {
+    employees.value = fetchedEmployees
   })
 
   onUnmounted(unsubscribe)
@@ -34,11 +36,17 @@ onMounted(() => {
 
 <template>
   <main>
-    <DataTable :value="employees" dataKey="id" tableStyle="min-width: 50rem">
+    <AddEmployeeDialog ref="addEmployeeRef"></AddEmployeeDialog>
+    <DeleteDialog :employees="employees" ref="deleteDialogRef"></DeleteDialog>
+    <DataTable
+      v-if="employees.length"
+      :value="employees"
+      dataKey="id"
+      tableStyle="min-width: 50rem"
+    >
       <PrimeColumn field="firstName" header="First Name"></PrimeColumn>
       <PrimeColumn field="lastName" header="Last Name"></PrimeColumn>
       <PrimeColumn field="email" header="Email"></PrimeColumn>
-      <PrimeColumn field="address" header="Address"></PrimeColumn>
       <PrimeColumn field="address" header="Address"></PrimeColumn>
       <PrimeColumn headerStyle="width: 10rem">
         <template #body="{ index }">
@@ -48,12 +56,14 @@ onMounted(() => {
               type="button"
               icon="pi pi-pencil"
               severity="info"
+              v-if="employees[index].id != disabledEmployeeId"
             />
             <PrimeButton
-              @click="deleteEmployee(index)"
+              @click="confirmDelete(index)"
               type="button"
               icon="pi pi-trash"
               severity="danger"
+              v-if="employees[index].id != disabledEmployeeId"
             />
           </div>
         </template>

@@ -14,7 +14,7 @@ const number = ref(props.percentage)
 
 const isPositive = ref()
 isPositive.value = number.value >= 0
-const textColor = ref(isPositive.value ? '#059669' : 'red')
+const textColor = ref(isPositive.value ? '#3cc698' : 'red')
 const signedNumber = ref(`${isPositive.value ? '+' : '-'}${Math.abs(number.value)}%`)
 const arrowIcon = ref(
   isPositive.value ? 'pi pi-arrow-up text-xs ml-2' : 'pi pi-arrow-down text-xs ml-2'
