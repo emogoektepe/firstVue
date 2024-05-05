@@ -1,21 +1,6 @@
 <script setup lang="ts">
 import router from '@/router'
 
-import { auth } from '@/firebase'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider()
-  provider.setCustomParameters({ prompt: 'select_account' })
-  signInWithPopup(auth, provider)
-    .then(() => {
-      router.push({ path: 'main/dashboard' })
-    })
-    .catch((error) => {
-      console.error('Something went wrong', error)
-    })
-}
-
 const guestLogin = () => {
   router.push({ path: 'main/dashboard' })
 }
@@ -32,11 +17,6 @@ const guestLogin = () => {
       </div>
       <h1>Welcome to Simple E-Commerce.</h1>
       <div class="login-buttons">
-        <PrimeButton
-          @click="signInWithGoogle"
-          icon="pi pi-google"
-          label="Google Login"
-        ></PrimeButton>
         <PrimeButton icon="pi pi-user" @click="guestLogin" label="Guest login"></PrimeButton>
         <a href="https://github.com/emogoektepe/firstVue" target="_blank">
           <PrimeButton icon="pi pi-github" style="width: 200px" label="Github Repo"></PrimeButton>
