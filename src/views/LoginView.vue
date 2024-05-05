@@ -37,7 +37,10 @@ const guestLogin = () => {
           icon="pi pi-google"
           label="Google Login"
         ></PrimeButton>
-        <PrimeButton @click="guestLogin" label="Guest login"></PrimeButton>
+        <PrimeButton icon="pi pi-user" @click="guestLogin" label="Guest login"></PrimeButton>
+        <a href="https://github.com/emogoektepe/firstVue" target="_blank">
+          <PrimeButton icon="pi pi-github" style="width: 200px" label="Github Repo"></PrimeButton>
+        </a>
       </div>
     </div>
   </main>
