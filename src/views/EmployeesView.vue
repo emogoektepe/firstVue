@@ -21,10 +21,6 @@ const confirmDelete = (rowDataIndex: number) => {
   deleteDialogRef.value?.openDeleteDialog(rowDataIndex)
 }
 
-const editEmployee = (rowDataIndex: number) => {
-  console.log(employees.value[rowDataIndex].id)
-}
-
 onMounted(() => {
   const unsubscribe = FirebaseService.getEmployees((fetchedEmployees) => {
     employees.value = fetchedEmployees
@@ -51,13 +47,6 @@ onMounted(() => {
       <PrimeColumn headerStyle="width: 10rem">
         <template #body="{ index }">
           <div class="edit-delete-button">
-            <PrimeButton
-              @click="editEmployee(index)"
-              type="button"
-              icon="pi pi-pencil"
-              severity="info"
-              v-if="employees[index].id != disabledEmployeeId"
-            />
             <PrimeButton
               @click="confirmDelete(index)"
               type="button"

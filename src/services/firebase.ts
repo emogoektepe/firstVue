@@ -25,10 +25,10 @@ export default {
 
   getCleanJson(employee: Employee) {
     return {
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      email: employee.email,
-      address: employee.address
+      firstName: employee.firstName.trim(),
+      lastName: employee.lastName.trim(),
+      email: employee.email.trim(),
+      address: employee.address.trim()
     }
   }
 }

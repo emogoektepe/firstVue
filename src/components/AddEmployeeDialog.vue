@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { Employee } from '@/models/employee'
+import type { Employee } from '@/models/employee'
 import FirebaseService from '@/services/firebase'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const visible = ref(false)
-
-const employee: Employee = new Employee()
+const employee = ref<Employee>({
+  id: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  address: ''
+})
 
 const openDialog = () => {
   visible.value = true
@@ -13,16 +18,30 @@ const openDialog = () => {
 
 const saveEmployee = () => {
   visible.value = false
-  FirebaseService.addEmployee(employee)
+  FirebaseService.addEmployee(employee.value)
   clearFields()
 }
 
 const clearFields = () => {
-  employee.firstName = ''
-  employee.lastName = ''
-  employee.email = ''
-  employee.address = ''
+  employee.value.firstName = ''
+  employee.value.lastName = ''
+  employee.value.email = ''
+  employee.value.address = ''
   visible.value = false
+}
+
+const isValid = computed(() => {
+  return (
+    employee.value.firstName.trim() !== '' &&
+    employee.value.lastName.trim() !== '' &&
+    isValidEmail(employee.value.email.trim()) &&
+    employee.value.address.trim() !== ''
+  )
+})
+
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  return emailRegex.test(email)
 }
 
 defineExpose({
@@ -60,7 +79,14 @@ defineExpose({
       </div>
       <div class="flex align-items-center gap-3 mb-3">
         <label for="email" class="font-semibold w-6rem">Email</label>
-        <PrimeInputText v-model="employee.email" id="email" class="flex-auto" autocomplete="on" />
+        <PrimeInputText
+          :invalid="!isValidEmail(employee.email) && employee.email.length > 0"
+          v-model="employee.email"
+          id="email"
+          class="flex-auto"
+          autocomplete="on"
+          placeholder="example@email.com"
+        />
       </div>
       <div class="flex align-items-center gap-3 mb-5">
         <label for="address" class="font-semibold w-6rem">Address</label>
@@ -78,7 +104,12 @@ defineExpose({
           severity="secondary"
           @click="clearFields()"
         ></PrimeButton>
-        <PrimeButton type="button" label="Save" @click="saveEmployee"></PrimeButton>
+        <PrimeButton
+          type="button"
+          label="Save"
+          @click="saveEmployee"
+          :disabled="!isValid"
+        ></PrimeButton>
       </div>
     </PrimeDialog>
   </div>
