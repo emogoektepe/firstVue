@@ -3,16 +3,22 @@ import type { Employee } from '@/models/employee'
 import { db } from '@/firebase'
 
 export default {
-  getEmployees(callback: (employees: Employee[]) => void) {
-    return onSnapshot(collection(db, 'employees'), (snapshot) => {
-      const employees: Employee[] = []
-      snapshot.forEach((employee) => {
-        const employeeData = employee.data() as Employee
-        employeeData.id = employee.id
-        employees.push(employeeData)
-      })
-      callback(employees)
-    })
+  getEmployees(callback: (employees: Employee[]) => void, errorCallback: (error: any) => void) {
+    return onSnapshot(
+      collection(db, 'employees'),
+      (snapshot) => {
+        const employees: Employee[] = []
+        snapshot.forEach((employee) => {
+          const employeeData = employee.data() as Employee
+          employeeData.id = employee.id
+          employees.push(employeeData)
+        })
+        callback(employees)
+      },
+      (err) => {
+        errorCallback(err)
+      }
+    )
   },
 
   addEmployee(employee: Employee) {

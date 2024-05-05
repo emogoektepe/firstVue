@@ -22,11 +22,17 @@ const confirmDelete = (rowDataIndex: number) => {
 }
 
 onMounted(() => {
+  const errorCallback = (error: any) => {
+    console.error('Error fetching employee data:', error)
+  }
+
   const unsubscribe = FirebaseService.getEmployees((fetchedEmployees) => {
     employees.value = fetchedEmployees
-  })
+  }, errorCallback)
 
-  onUnmounted(unsubscribe)
+  onUnmounted(() => {
+    unsubscribe()
+  })
 })
 </script>
 
