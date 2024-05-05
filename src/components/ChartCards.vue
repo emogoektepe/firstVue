@@ -3,8 +3,6 @@ import DynamicChart from '@/components/DynamicChart.vue'
 
 const props = defineProps<{
   data: number[]
-  header: string
-  secondHeader: string
   color: string
   percentage: number
 }>()
@@ -25,8 +23,12 @@ const arrowIcon = ref(
 <template>
   <div class="card-container">
     <div>
-      <h3>{{ header }}</h3>
-      <h1>{{ secondHeader }}</h1>
+      <h3>
+        <slot name="header"></slot>
+      </h3>
+      <h1>
+        <slot name="secondHeader"></slot>
+      </h1>
       <h3 :style="{ color: textColor }">{{ signedNumber }} <i :class="arrowIcon"></i></h3>
     </div>
     <div class="chart">

@@ -11,13 +11,16 @@ import PieChart from '@/components/PieChart.vue'
       <ChartCards
         v-for="(card, index) in DashboardDummyData"
         :key="index"
-        :header="card.header"
-        :second-header="card.secondHeader"
         :color="card.color"
         :data="card.data"
         :percentage="card.percentage"
         class="chart-card"
-      ></ChartCards>
+      >
+        <!-- If you need to insert optional content, such as additional info along with the header text, use slots. -->
+        <!-- Use props when you only need to change attributes, for example, if the component only has a header. -->
+        <template #header>{{ card.header }}</template>
+        <template #secondHeader>{{ card.secondHeader }}</template>
+      </ChartCards>
     </div>
     <div class="mid-wrapper">
       <div class="vertical-bar-and-pie-chart">
