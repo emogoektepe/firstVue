@@ -3,7 +3,7 @@ import type { Employee } from '@/models/employee'
 import { db } from '@/firebase'
 
 export default {
-  getEmployees(callback: (employees: Employee[]) => void, errorCallback: (error: any) => void) {
+  getEmployees(callback: (employees: Employee[]) => void, errorCallback: (error: Error) => void) {
     return onSnapshot(
       collection(db, 'employees'),
       (snapshot) => {
@@ -15,9 +15,7 @@ export default {
         })
         callback(employees)
       },
-      (err) => {
-        errorCallback(err)
-      }
+      errorCallback
     )
   },
 
