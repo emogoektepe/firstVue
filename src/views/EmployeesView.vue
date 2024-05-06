@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import FirebaseService from '@/services/firebase'
-import DeleteDialog from '@/components/DeleteDialog.vue'
 import AddEmployeeDialog from '@/components/AddEmployeeDialog.vue'
+import DeleteDialog from '@/components/DeleteDialog.vue'
+import FirebaseService from '@/services/firebase'
 
 import type { Employee } from '@/models/employee'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 
 const employees = ref<Employee[]>([])
 const deleteDialogRef = ref<typeof DeleteDialog | null>(null)
@@ -21,19 +21,13 @@ const confirmDelete = (rowDataIndex: number) => {
   deleteDialogRef.value?.openDeleteDialog(rowDataIndex)
 }
 
-onMounted(() => {
-  const errorCallback = (error: any) => {
-    console.error('Error fetching employee data:', error)
-  }
+const errorCallback = (error: any) => {
+  console.error('Error fetching employee data:', error)
+}
 
-  const unsubscribe = FirebaseService.getEmployees((fetchedEmployees) => {
-    employees.value = fetchedEmployees
-  }, errorCallback)
-
-  onUnmounted(() => {
-    unsubscribe()
-  })
-})
+FirebaseService.getEmployees((fetchedEmployees) => {
+  employees.value = fetchedEmployees
+}, errorCallback)
 </script>
 
 <template>
